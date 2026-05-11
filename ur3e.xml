@@ -59,12 +59,17 @@
     <mesh file="wrist2_1.obj"/>
     <mesh file="wrist2_2.obj"/>
     <mesh file="wrist3.obj"/>
+
+    <mesh name="crg30_mounting_plate_stl" file="../../mujoco/assets_gripper/crg30-050_collision/crg30-050_mounting_plate_simple.stl"/>
+    <mesh name="crg30_body_stl" file="../../mujoco/assets_gripper/crg30-050_collision/crg30-050_body.stl"/>
+    <mesh name="crg30_top_cover_stl" file="../../mujoco/assets_gripper/crg30-050_collision/crg30-050_top_cover.stl"/>
+    <mesh name="crg30_base_jaw_stl" file="../../mujoco/assets_gripper/crg30-050_collision/crg30-050_base_jaw.stl"/>
   </asset>
 
   <worldbody>
     <light name="spotlight" mode="targetbodycom" target="wrist_3_link" pos="0 -1 2"/>
     <!-- <body name="base" childclass="ur3e" euler="0 0 -3.141592653589793"> -->
-    <body name="base" childclass="ur3e">
+    <body name="base" childclass="ur3e" euler="0 0 -3.141592653589793">
 
       <inertial mass="2" pos="0 0 0" diaginertia="0.0030532 0.0030532 0.005625"/>
       <geom mesh="base_0" material="jointgray" class="visual"/>
@@ -115,6 +120,77 @@
                   <geom mesh="wrist3" material="linkgray" class="visual"/>
                   <geom class="eef_collision" size="0.032 0.023" pos="0 0.07 0" quat="1 1 0 0"/>
                   <site name="attachment_site" pos="0 0.09215 0" quat="-1 1 0 0"/>
+
+                  <body name="crg30_mounting_plate" pos="0 0.09215 0" quat="-1 1 0 0">
+                    <inertial pos="0 0 0" mass="0.05" diaginertia="1e-5 1e-5 1e-5"/>
+                    <geom name="crg30_mounting_plate_visual"
+                          type="mesh" mesh="crg30_mounting_plate_stl"
+                          contype="0" conaffinity="0" group="2"
+                          rgba="0.75 0.75 0.75 1"/>
+                    <geom name="crg30_mounting_plate_collision"
+                          type="mesh" mesh="crg30_mounting_plate_stl"
+                          contype="1" conaffinity="1" group="3"
+                          rgba="0 0 0 0"/>
+                    <site name="crg30_mounting_plate_site" pos="0 0 0" size="0.005" rgba="1 0 0 1"/>
+
+                    <body name="crg30_body" pos="0 0 0.01" quat="0.7071 0.7071 0 0">
+                      <inertial pos="0 0 0.02" mass="0.25" diaginertia="2e-4 2e-4 2e-4"/>
+                      <geom name="crg30_body_visual"
+                            type="mesh" mesh="crg30_body_stl"
+                            contype="0" conaffinity="0" group="2"
+                            rgba="0.25 0.25 0.25 1"/>
+                      <geom name="crg30_body_collision"
+                            type="mesh" mesh="crg30_body_stl"
+                            contype="1" conaffinity="1" group="3"
+                            rgba="0 0 0 0"/>
+                      <geom name="crg30_top_cover_visual"
+                            type="mesh" mesh="crg30_top_cover_stl"
+                            pos="0 0.044 0" quat="0.7071 -0.7071 0 0"
+                            contype="0" conaffinity="0" group="2"
+                            rgba="0.75 0.75 0.75 1"/>
+                      <geom name="crg30_top_cover_collision"
+                            type="mesh" mesh="crg30_top_cover_stl"
+                            pos="0 0.044 0" quat="0.7071 -0.7071 0 0"
+                            contype="1" conaffinity="1" group="3"
+                            rgba="0 0 0 0"/>
+
+                      <body name="crg30_right_base_jaw" pos="-0.0175 0.041 0.0115">
+                        <inertial pos="0 0 0" mass="0.03" diaginertia="1e-5 1e-5 1e-5"/>
+                        <joint name="crg30_right_base_jaw_slide" type="slide" axis="1 0 0"
+                               range="0 0.01775" damping="1" armature="0.001"/>
+                        <geom name="crg30_right_base_jaw_visual"
+                              type="mesh" mesh="crg30_base_jaw_stl"
+                              quat="4.329780281177467e-17 -4.3297802811774664e-17 0.7071067811865475 0.7071067811865476"
+                              contype="0" conaffinity="0" group="2"
+                              rgba="0.45 0.45 0.45 1"/>
+                        <geom name="crg30_right_base_jaw_collision"
+                              type="mesh" mesh="crg30_base_jaw_stl"
+                              quat="4.329780281177467e-17 -4.3297802811774664e-17 0.7071067811865475 0.7071067811865476"
+                              contype="1" conaffinity="1" group="3"
+                              rgba="0 0 0 0"/>
+                        <site name="crg30_right_base_jaw_site" pos="0 0 0" size="0.004" rgba="1 0 1 1"/>
+                      </body>
+
+                      <body name="crg30_left_base_jaw" pos="0.0175 0.041 -0.0115">
+                        <inertial pos="0 0 0" mass="0.03" diaginertia="1e-5 1e-5 1e-5"/>
+                        <joint name="crg30_left_base_jaw_slide" type="slide" axis="1 0 0"
+                               range="-0.01775 0" damping="1" armature="0.001"/>
+                        <geom name="crg30_left_base_jaw_visual"
+                              type="mesh" mesh="crg30_base_jaw_stl"
+                              quat="0.7071 -0.7071 0 0"
+                              contype="0" conaffinity="0" group="2"
+                              rgba="0.45 0.45 0.45 1"/>
+                        <geom name="crg30_left_base_jaw_collision"
+                              type="mesh" mesh="crg30_base_jaw_stl"
+                              quat="0.7071 -0.7071 0 0"
+                              contype="1" conaffinity="1" group="3"
+                              rgba="0 0 0 0"/>
+                        <site name="crg30_left_base_jaw_site" pos="0 0 0" size="0.004" rgba="1 0 1 1"/>
+                      </body>
+
+                      <site name="crg30_body_site" pos="0 0 0" size="0.005" rgba="0 0 1 1"/>
+                    </body>
+                  </body>
                 </body>
               </body>
             </body>
@@ -131,9 +207,11 @@
     <general class="size0" name="wrist_1" joint="wrist_1_joint"/>
     <general class="size0" name="wrist_2" joint="wrist_2_joint"/>
     <general class="size0" name="wrist_3" joint="wrist_3_joint"/>
+    <position name="crg30_left_base_jaw_motor" joint="crg30_left_base_jaw_slide" kp="300" ctrlrange="-0.01775 0" forcerange="-50 50"/>
+    <position name="crg30_right_base_jaw_motor" joint="crg30_right_base_jaw_slide" kp="300" ctrlrange="0 0.01775" forcerange="-50 50"/>
   </actuator>
 
   <keyframe>
-    <key name="home" qpos="-1.5708 -1.5708 1.5708 -1.5708 -1.5708 0" ctrl="-1.5708 -1.5708 1.5708 -1.5708 -1.5708 0"/>
+    <key name="home" qpos="-1.5708 -1.5708 1.5708 -1.5708 -1.5708 0 0 0" ctrl="-1.5708 -1.5708 1.5708 -1.5708 -1.5708 0 0 0"/>
   </keyframe>
 </mujoco>

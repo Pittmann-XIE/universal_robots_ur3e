@@ -64,6 +64,10 @@
     <mesh name="crg30_body_stl" file="../../mujoco/assets_gripper/crg30-050_collision/crg30-050_body.stl"/>
     <mesh name="crg30_top_cover_stl" file="../../mujoco/assets_gripper/crg30-050_collision/crg30-050_top_cover.stl"/>
     <mesh name="crg30_base_jaw_stl" file="../../mujoco/assets_gripper/crg30-050_collision/crg30-050_base_jaw.stl"/>
+    <mesh name="crg30_finger_mounting_plate_left_stl" file="../../mujoco/assets_gripper/crg30-050_collision/finger_mounting_plate_left.stl"/>
+    <mesh name="crg30_finger_mounting_plate_right_stl" file="../../mujoco/assets_gripper/crg30-050_collision/finger_mounting_plate_right.stl"/>
+    <mesh name="crg30_soft_gripper_finger_left_stl" file="../../mujoco/assets_gripper/crg30-050_collision/soft_gripper_finger_left.stl"/>
+    <mesh name="crg30_soft_gripper_finger_right_stl" file="../../mujoco/assets_gripper/crg30-050_collision/soft_gripper_finger_right.stl"/>
   </asset>
 
   <worldbody>
@@ -154,7 +158,7 @@
                             contype="1" conaffinity="1" group="3"
                             rgba="0 0 0 0"/>
 
-                      <body name="crg30_right_base_jaw" pos="-0.0175 0.041 0.0115">
+                      <body name="crg30_right_base_jaw" pos="-0.01175 0.041 0.0115">
                         <inertial pos="0 0 0" mass="0.03" diaginertia="1e-5 1e-5 1e-5"/>
                         <joint name="crg30_right_base_jaw_slide" type="slide" axis="1 0 0"
                                range="0 0.01775" damping="1" armature="0.001"/>
@@ -168,10 +172,68 @@
                               quat="4.329780281177467e-17 -4.3297802811774664e-17 0.7071067811865475 0.7071067811865476"
                               contype="1" conaffinity="1" group="3"
                               rgba="0 0 0 0"/>
+                        <body name="crg30_right_finger_mounting_plate"
+                              pos="-0.01924 0.0195 -0.0085"
+                              quat="6.123233995736766e-17 1 0 0">
+                          <inertial pos="0 0 0" mass="0.01" diaginertia="1e-6 1e-6 1e-6"/>
+                          <geom name="crg30_right_finger_mounting_plate_visual"
+                                type="mesh" mesh="crg30_finger_mounting_plate_right_stl"
+                                contype="0" conaffinity="0" group="2"
+                                rgba="0.05 0.25 1 1"/>
+                          <geom name="crg30_right_finger_mounting_plate_collision"
+                                type="mesh" mesh="crg30_finger_mounting_plate_right_stl"
+                                contype="1" conaffinity="1" group="3"
+                                rgba="0 0 0 0"/>
+                          <site name="crg30_right_finger_mounting_plate_site"
+                                pos="0 0 0" size="0.004" rgba="1 1 0 1"/>
+                          <geom name="crg30_right_finger_mounting_plate_frame_x"
+                                type="capsule" fromto="0 0 0 0.06 0 0"
+                                size="0.004" rgba="1 0 0 1"
+                                contype="0" conaffinity="0" group="2"/>
+                          <geom name="crg30_right_finger_mounting_plate_frame_y"
+                                type="capsule" fromto="0 0 0 0 0.06 0"
+                                size="0.004" rgba="0 1 0 1"
+                                contype="0" conaffinity="0" group="2"/>
+                          <geom name="crg30_right_finger_mounting_plate_frame_z"
+                                type="capsule" fromto="0 0 0 0 0 0.06"
+                                size="0.004" rgba="0 0.25 1 1"
+                                contype="0" conaffinity="0" group="2"/>
+                          <body name="crg30_right_soft_gripper_finger"
+                                pos="0 0 0" quat="1 0 0 0">
+                            <inertial pos="0 0 0" mass="0.01" diaginertia="1e-6 1e-6 1e-6"/>
+                            <geom name="crg30_right_soft_gripper_finger_visual"
+                                  type="mesh" mesh="crg30_soft_gripper_finger_right_stl"
+                                  quat="4.329780281177467e-17 4.3297802811774664e-17 0.7071067811865476 0.7071067811865475"
+                                  pos="0.01324 0 0.0105"
+                                  contype="0" conaffinity="0" group="2"
+                                  rgba="0.08 0.08 0.08 1"/>
+                            <geom name="crg30_right_soft_gripper_finger_collision"
+                                  type="mesh" mesh="crg30_soft_gripper_finger_right_stl"
+                                  quat="4.329780281177467e-17 4.3297802811774664e-17 0.7071067811865476 0.7071067811865475"
+                                  pos="0.01324 0 0.0105"
+                                  contype="1" conaffinity="1" group="3"
+                                  rgba="0 0 0 0"/>
+                            <site name="crg30_right_soft_gripper_finger_site"
+                                  pos="0.01324 0 0.0105" size="0.004" rgba="1 0.5 0 1"/>
+                            <!-- Offset debug copy of the soft-finger frame for visibility. -->
+                            <geom name="crg30_right_soft_gripper_finger_frame_x"
+                                  type="capsule" fromto="0 -0.04 0 0.12 -0.04 0"
+                                  size="0.0018" rgba="1 0.25 0.25 1"
+                                  contype="0" conaffinity="0" group="2"/>
+                            <geom name="crg30_right_soft_gripper_finger_frame_y"
+                                  type="capsule" fromto="0 -0.04 0 0 0.08 0"
+                                  size="0.0018" rgba="0.25 1 0.25 1"
+                                  contype="0" conaffinity="0" group="2"/>
+                            <geom name="crg30_right_soft_gripper_finger_frame_z"
+                                  type="capsule" fromto="0 -0.04 0 0 -0.04 0.12"
+                                  size="0.0018" rgba="0.25 0.5 1 1"
+                                  contype="0" conaffinity="0" group="2"/>
+                          </body>
+                        </body>
                         <site name="crg30_right_base_jaw_site" pos="0 0 0" size="0.004" rgba="1 0 1 1"/>
                       </body>
 
-                      <body name="crg30_left_base_jaw" pos="0.0175 0.041 -0.0115">
+                      <body name="crg30_left_base_jaw" pos="0.01175 0.041 -0.0115">
                         <inertial pos="0 0 0" mass="0.03" diaginertia="1e-5 1e-5 1e-5"/>
                         <joint name="crg30_left_base_jaw_slide" type="slide" axis="1 0 0"
                                range="-0.01775 0" damping="1" armature="0.001"/>
@@ -185,6 +247,57 @@
                               quat="0.7071 -0.7071 0 0"
                               contype="1" conaffinity="1" group="3"
                               rgba="0 0 0 0"/>
+                        <body name="crg30_left_finger_mounting_plate"
+                              pos="0.01924 0.0195 0.0085"
+                              quat="-3.749399456654644e-33 -6.123233995736766e-17 6.123233995736766e-17 1">
+                          <inertial pos="0 0 0" mass="0.01" diaginertia="1e-6 1e-6 1e-6"/>
+                          <geom name="crg30_left_finger_mounting_plate_visual"
+                                type="mesh" mesh="crg30_finger_mounting_plate_left_stl"
+                                contype="0" conaffinity="0" group="2"
+                                rgba="0.05 0.25 1 1"/>
+                          <geom name="crg30_left_finger_mounting_plate_collision"
+                                type="mesh" mesh="crg30_finger_mounting_plate_left_stl"
+                                contype="1" conaffinity="1" group="3"
+                                rgba="0 0 0 0"/>
+                          <geom name="crg30_left_soft_gripper_finger_visual"
+                                type="mesh" mesh="crg30_soft_gripper_finger_left_stl"
+                                quat="4.329780281177467e-17 4.3297802811774664e-17 0.7071067811865476 0.7071067811865475"
+                                pos="0.01324 0 0.0105"
+                                contype="0" conaffinity="0" group="2"
+                                rgba="0.08 0.08 0.08 1"/>
+                          <geom name="crg30_left_soft_gripper_finger_collision"
+                                type="mesh" mesh="crg30_soft_gripper_finger_left_stl"
+                                quat="4.329780281177467e-17 4.3297802811774664e-17 0.7071067811865476 0.7071067811865475"
+                                pos="0.01324 0 0.0105"
+                                contype="1" conaffinity="1" group="3"
+                                rgba="0 0 0 0"/>
+                          <site name="crg30_left_finger_mounting_plate_site"
+                                pos="0.01324 0 0.0105" size="0.004" rgba="1 1 0 1"/>
+                        </body>
+                        <geom name="crg30_left_base_jaw_frame_x"
+                              type="capsule" fromto="0 0 0 0.06 0 0"
+                              size="0.002" rgba="1 0 0 1"
+                              contype="0" conaffinity="0" group="2"/>
+                        <geom name="crg30_left_base_jaw_frame_y"
+                              type="capsule" fromto="0 0 0 0 0.06 0"
+                              size="0.002" rgba="0 1 0 1"
+                              contype="0" conaffinity="0" group="2"/>
+                        <geom name="crg30_left_base_jaw_frame_z"
+                              type="capsule" fromto="0 0 0 0 0 0.06"
+                              size="0.002" rgba="0 0.25 1 1"
+                              contype="0" conaffinity="0" group="2"/>
+                        <geom name="crg30_left_finger_mounting_plate_frame_x"
+                              type="capsule" fromto="0 0 0 0.09 0 0"
+                              size="0.0012" rgba="1 0.4 0.4 1"
+                              contype="0" conaffinity="0" group="2"/>
+                        <geom name="crg30_left_finger_mounting_plate_frame_y"
+                              type="capsule" fromto="0 0 0 0 0 -0.09"
+                              size="0.0012" rgba="0.4 1 0.4 1"
+                              contype="0" conaffinity="0" group="2"/>
+                        <geom name="crg30_left_finger_mounting_plate_frame_z"
+                              type="capsule" fromto="0 0 0 0 0.09 0"
+                              size="0.0012" rgba="0.4 0.6 1 1"
+                              contype="0" conaffinity="0" group="2"/>
                         <site name="crg30_left_base_jaw_site" pos="0 0 0" size="0.004" rgba="1 0 1 1"/>
                       </body>
 

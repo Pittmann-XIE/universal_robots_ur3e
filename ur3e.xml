@@ -212,6 +212,7 @@
                                   quat="4.329780281177467e-17 4.3297802811774664e-17 0.7071067811865476 0.7071067811865475"
                                   pos="0.01324 -0.0025 0.0105"
                                   contype="1" conaffinity="1" group="3"
+                                  friction="2.0 0.05 0.01"
                                   rgba="0 0 0 0"/>
                             <site name="crg30_right_soft_gripper_finger_site"
                                   pos="0.01324 -0.0025 0.0105" size="0.004" rgba="1 0.5 0 1"/>
@@ -275,6 +276,7 @@
                                   quat="4.329780281177467e-17 4.3297802811774664e-17 0.7071067811865476 0.7071067811865475"
                                   pos="0.01324 -0.0025 0.0105"
                                   contype="1" conaffinity="1" group="3"
+                                  friction="2.0 0.05 0.01"
                                   rgba="0 0 0 0"/>
                             <site name="crg30_left_soft_gripper_finger_site"
                                   pos="0.01324 -0.0025 0.0105" size="0.004" rgba="1 0.5 0 1"/>

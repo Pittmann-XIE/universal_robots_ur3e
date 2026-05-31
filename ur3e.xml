@@ -310,7 +310,7 @@
                       </body>
 
                       <site name="crg30_body_site" pos="0 0 0" size="0.005" rgba="0 0 1 1"/>
-                      <site name="crg30_grasp_tcp_site" pos="0 0.1 0" size="0.006" rgba="1 0.7 0 1"/>
+                      <site name="crg30_grasp_tcp_site" pos="0 0.13 0" size="0.006" rgba="1 0.7 0 1"/>
                     </body>
                   </body>
                 </body>

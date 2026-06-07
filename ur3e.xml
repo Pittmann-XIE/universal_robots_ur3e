@@ -38,6 +38,8 @@
     <material class="ur3e" name="jointgray" rgba="0.278 0.278 0.278 1"/>
     <material class="ur3e" name="linkgray" rgba="0.75 0.75 0.75 1" specular="0.9" shininess="0.5" reflectance="0.35"/>
     <material class="ur3e" name="urblue" rgba="0.49 0.678 0.8 1"/>
+    <texture name="champane_texture" type="2d" file="../mujoco/assets_gripper/champane_texture.png"/>
+    <material name="crg30_body_champane" texture="champane_texture" rgba="1 1 1 1" specular="0.4" shininess="0.35"/>
 
     <mesh file="base_0.obj"/>
     <mesh file="base_1.obj"/>
@@ -60,6 +62,8 @@
     <mesh file="wrist2_2.obj"/>
     <mesh file="wrist3.obj"/>
 
+    <mesh name="camera_fixture_stl" file="../../mujoco/assets_gripper/crg30-050_collision/camera_fixture.stl"/>
+    <mesh name="realsense_d405_stl" file="../../mujoco/assets_gripper/crg30-050_collision/RealSense_D405.stl"/>
     <mesh name="crg30_mounting_plate_stl" file="../../mujoco/assets_gripper/crg30-050_collision/crg30-050_mounting_plate_simple.stl"/>
     <mesh name="crg30_body_stl" file="../../mujoco/assets_gripper/crg30-050_collision/crg30-050_body.stl"/>
     <mesh name="crg30_top_cover_stl" file="../../mujoco/assets_gripper/crg30-050_collision/crg30-050_top_cover.stl"/>
@@ -124,25 +128,83 @@
                   <geom mesh="wrist3" material="linkgray" class="visual"/>
                   <geom class="eef_collision" size="0.032 0.023" pos="0 0.07 0" quat="1 1 0 0"/>
                   <site name="attachment_site" pos="0 0.09215 0" quat="-1 1 0 0"/>
+                  <geom name="wrist_3_link_frame_x"
+                        type="capsule" fromto="0 0 0 0.09 0 0"
+                        size="0.002" rgba="1 0 0 1"
+                        contype="0" conaffinity="0" group="2"/>
+                  <geom name="wrist_3_link_frame_y"
+                        type="capsule" fromto="0 0 0 0 0.09 0"
+                        size="0.002" rgba="0 1 0 1"
+                        contype="0" conaffinity="0" group="2"/>
+                  <geom name="wrist_3_link_frame_z"
+                        type="capsule" fromto="0 0 0 0 0 0.09"
+                        size="0.002" rgba="0 0.25 1 1"
+                        contype="0" conaffinity="0" group="2"/>
 
-                  <body name="crg30_mounting_plate" pos="0 0.09215 0" quat="-1 1 0 0">
-                    <inertial pos="0 0 0" mass="0.05" diaginertia="1e-5 1e-5 1e-5"/>
-                    <geom name="crg30_mounting_plate_visual"
-                          type="mesh" mesh="crg30_mounting_plate_stl"
+                  <body name="camera_fixture" pos="0 0.09215 0" quat="0 0 1 1">
+                    <inertial pos="0 0.0140584 0.00775" mass="0.05" diaginertia="1e-5 1e-5 1e-5"/>
+                    <geom name="camera_fixture_visual"
+                          type="mesh" mesh="camera_fixture_stl"
                           contype="0" conaffinity="0" group="2"
-                          rgba="0.75 0.75 0.75 1"/>
-                    <geom name="crg30_mounting_plate_collision"
-                          type="mesh" mesh="crg30_mounting_plate_stl"
+                          rgba="1.0 1.0 1.0 1"/>
+                    <geom name="camera_fixture_collision"
+                          type="mesh" mesh="camera_fixture_stl"
                           contype="1" conaffinity="1" group="3"
                           rgba="0 0 0 0"/>
-                    <site name="crg30_mounting_plate_site" pos="0 0 0" size="0.005" rgba="1 0 0 1"/>
+                    <site name="camera_fixture_site" pos="0 0 0" size="0.005" rgba="0 1 1 1"/>
+                    <geom name="camera_fixture_frame_x"
+                          type="capsule" fromto="0 0 0 0.08 0 0"
+                          size="0.0018" rgba="1 0.25 0.25 1"
+                          contype="0" conaffinity="0" group="2"/>
+                    <geom name="camera_fixture_frame_y"
+                          type="capsule" fromto="0 0 0 0 0.08 0"
+                          size="0.0018" rgba="0.25 1 0.25 1"
+                          contype="0" conaffinity="0" group="2"/>
+                    <geom name="camera_fixture_frame_z"
+                          type="capsule" fromto="0 0 0 0 0 0.08"
+                          size="0.0018" rgba="0.25 0.5 1 1"
+                          contype="0" conaffinity="0" group="2"/>
+
+                    <body name="realsense_d405" pos="0 0.0424 0.033" quat="0.9659258263 0.2588190451 0 0">
+                      <inertial pos="-0.000045 0 -0.0115" mass="0.02" diaginertia="1e-5 1e-5 1e-5"/>
+                      <geom name="realsense_d405_visual"
+                            type="mesh" mesh="realsense_d405_stl"
+                            contype="0" conaffinity="0" group="2"
+                            rgba="0.7 0.7 0.7 1"/>
+                      <site name="realsense_d405_site" pos="0 0 0" size="0.004" rgba="1 1 1 1"/>
+                      <camera name="realsense_d405_center" pos="0 0 0" xyaxes="-1 0 0 0 1 0" fovy="58"/>
+                      <geom name="realsense_d405_frame_x"
+                            type="capsule" fromto="0 0 0 0.05 0 0"
+                            size="0.0015" rgba="1 0 0 1"
+                            contype="0" conaffinity="0" group="2"/>
+                      <geom name="realsense_d405_frame_y"
+                            type="capsule" fromto="0 0 0 0 0.05 0"
+                            size="0.0015" rgba="0 1 0 1"
+                            contype="0" conaffinity="0" group="2"/>
+                      <geom name="realsense_d405_frame_z"
+                            type="capsule" fromto="0 0 0 0 0 0.05"
+                            size="0.0015" rgba="0 0.25 1 1"
+                            contype="0" conaffinity="0" group="2"/>
+                    </body>
+
+                    <body name="crg30_mounting_plate" pos="0 0 0.003" quat="0 0 0 1">
+                      <inertial pos="0 0 0" mass="0.05" diaginertia="1e-5 1e-5 1e-5"/>
+                      <geom name="crg30_mounting_plate_visual"
+                            type="mesh" mesh="crg30_mounting_plate_stl"
+                            contype="0" conaffinity="0" group="2"
+                            material="crg30_body_champane"/>
+                      <geom name="crg30_mounting_plate_collision"
+                            type="mesh" mesh="crg30_mounting_plate_stl"
+                            contype="1" conaffinity="1" group="3"
+                            rgba="0 0 0 0"/>
+                      <site name="crg30_mounting_plate_site" pos="0 0 0" size="0.005" rgba="1 0 0 1"/>
 
                     <body name="crg30_body" pos="0 0 0.01" quat="0.7071 0.7071 0 0">
                       <inertial pos="0 0 0.02" mass="0.25" diaginertia="2e-4 2e-4 2e-4"/>
                       <geom name="crg30_body_visual"
                             type="mesh" mesh="crg30_body_stl"
                             contype="0" conaffinity="0" group="2"
-                            rgba="0.25 0.25 0.25 1"/>
+                            material="crg30_body_champane"/>
                       <geom name="crg30_body_collision"
                             type="mesh" mesh="crg30_body_stl"
                             contype="1" conaffinity="1" group="3"
@@ -151,7 +213,7 @@
                             type="mesh" mesh="crg30_top_cover_stl"
                             pos="0 0.044 0" quat="0.7071 -0.7071 0 0"
                             contype="0" conaffinity="0" group="2"
-                            rgba="0.75 0.75 0.75 1"/>
+                            rgba="0.0 0.0 0.0 1"/>
                       <geom name="crg30_top_cover_collision"
                             type="mesh" mesh="crg30_top_cover_stl"
                             pos="0 0.044 0" quat="0.7071 -0.7071 0 0"
@@ -312,6 +374,7 @@
                       <site name="crg30_body_site" pos="0 0 0" size="0.005" rgba="0 0 1 1"/>
                       <site name="crg30_grasp_tcp_site" pos="0 0.13 0" size="0.006" rgba="1 0.7 0 1"/>
                     </body>
+                  </body>
                   </body>
                 </body>
               </body>

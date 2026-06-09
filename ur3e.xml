@@ -75,7 +75,8 @@
   </asset>
 
   <worldbody>
-    <light name="spotlight" mode="targetbodycom" target="wrist_3_link" pos="0 -1 2"/>
+    <light name="spotlight" mode="targetbodycom" target="wrist_3_link" pos="0 -1 2"
+           diffuse="0.12 0.12 0.12" ambient="0.08 0.08 0.08" specular="0 0 0"/>
     <!-- <body name="base" childclass="ur3e" euler="0 0 -3.141592653589793"> -->
     <body name="base" childclass="ur3e" euler="0 0 -3.141592653589793">
 
@@ -332,7 +333,7 @@
                                   quat="4.329780281177467e-17 4.3297802811774664e-17 0.7071067811865476 0.7071067811865475"
                                   pos="0.01324 -0.0025 0.0105"
                                   contype="0" conaffinity="0" group="2"
-                                  rgba="0.05 0.25 1 0.5"/>
+                                  rgba="0.05 0.25 1 1.0"/>
                             <geom name="crg30_left_soft_gripper_finger_collision"
                                   type="mesh" mesh="crg30_soft_gripper_finger_left_stl"
                                   quat="4.329780281177467e-17 4.3297802811774664e-17 0.7071067811865476 0.7071067811865475"
